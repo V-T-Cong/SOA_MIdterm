@@ -1,0 +1,54 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'src/myStyle.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static 'src/myScript.js' %}"></script>
+  </head>
+
+  <body>
+    <table class="homepage-container">
+      <tr>
+        <td colspan="5"><h1>Hello {{ emp.username }}</h1></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="button-container">
+            <button class="button" id="new_order">New Order</button>
+          </div>
+        </td>
+        <td>
+          <div class="button-container">
+            <button class="button" id="update_menu">Update Menu</button>
+          </div>
+        </td>
+        <td>
+          <div class="button-container">
+            <button class="button" id="view_order">View Order</button>
+          </div>
+        </td>
+        <td>
+          <div class="button-container">  
+            <button class="button" id="view_item_list">View Item List</button>
+          </div>
+        </td>
+        <td>
+          <div class="button-container">  
+            <button class="button" id="sign_out">Sign Out</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+  <script>
+      var emp_role = '{{ emp.role }}';
+      var emp_id = '{{ emp.id }}'
+  </script>
+</html>

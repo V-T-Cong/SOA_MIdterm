@@ -1,0 +1,74 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'src/myStyle.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static 'src/myScript.js' %}"></script>
+  </head>
+    <body>
+        <div class="order">
+            {% block content %}
+                <h1>Item List</h1>
+                {% for item in item_list %}
+                <table>
+                    <tr>
+                        <td>
+                            <label>Item name:</label>
+                            {{ item.menu.name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Quantity:</label>
+                            {{ item.quantity }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table class="note-field">
+                                <td class="label">
+                                    <label for="note">Note:</label>
+                                </td>
+                                <td class="textarea">
+                                    <textarea name="note" id="note" rows="4" cols="50" readonly></textarea>
+                                </td>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <form id="f-{{ item.id }}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <select name="new_status_id" id="new_status" class="form-control">
+                                        {% for st in status %}
+                                        <option value="{{ st.id }}"{% if st.id == item.status.id %}selected{% endif %}>{{ st.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="button">Update</button>
+                                <input type="hidden" name="item_id" value="{{ item.id }}" readonly>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+                {% endfor %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </body>
+    
+</html>
